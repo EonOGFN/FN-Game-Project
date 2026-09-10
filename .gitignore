@@ -14,3 +14,9 @@ Saved
 *.suo
 *.xcodeproj
 *.xcworkspace
+*.pak
+*.sig
+*.exe
+*.utoc
+*.ucas
+*.txt
