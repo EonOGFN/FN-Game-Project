@@ -197,7 +197,9 @@ FReply SAdditiveBaseDialog::OnWithoutClicked() {
 	return FReply::Handled();
 }
 
-bool SAdditiveBaseDialog::Open(const FString& SequenceName, FString& OutBasePath) {
+bool SAdditiveBaseDialog::Open(const FString& SequenceName, FString& OutBasePath, UAnimSequence*& OutBaseSequence) {
+	OutBaseSequence = nullptr;
+
 	const TSharedRef<SWindow> Window = SNew(SWindow)
 		.Title(LOCTEXT("Title", "Reflection"))
 		.ClientSize(FVector2D(560.0f, 340.0f))
@@ -222,6 +224,7 @@ bool SAdditiveBaseDialog::Open(const FString& SequenceName, FString& OutBasePath
 	OutBasePath = Dialog->TypedPath;
 
 	if (OutBasePath.IsEmpty() && !Dialog->PickedAsset.IsEmpty()) {
+		OutBaseSequence = LoadObject<UAnimSequence>(nullptr, *Dialog->PickedAsset);
 		OutBasePath = FPackageName::ObjectPathToPackageName(Dialog->PickedAsset);
 
 		FRRedirects::Reverse(OutBasePath);

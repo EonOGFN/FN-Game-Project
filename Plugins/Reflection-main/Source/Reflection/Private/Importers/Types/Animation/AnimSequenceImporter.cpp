@@ -106,6 +106,7 @@ bool IAnimSequenceImporter::Import() {
 		return false;
 	}
 
+	if (!FRRedirects::EmoteDestination.IsEmpty()) FEonEmoteImport::EnsureRetargetSource(Skeleton, GetAssetData(), GetAssetName());
 	/* Asked for by the path the game cooked it under. The export names that itself; only when it
 	 * doesn't is the path the asset landed at turned back into one. */
 	FString FetchPath = GetAssetExport()->HasField(TEXT("Package"))
@@ -126,6 +127,7 @@ bool IAnimSequenceImporter::Import() {
 	/* Asked for before the sequence is made rather than after: nothing is created for an animation
 	 * whose keys cannot be had, so a Cloud that isn't running leaves the last import standing. */
 	TSharedPtr<FJsonObject> Payload = GetAnimation(FetchPath);
+	UAnimSequence* SelectedAdditiveBase = nullptr;
 
 	/* A difference with nothing to be put back over: it names a frame of itself, or names an
 	 * animation that isn't there, or names none at all, which is what an aim offset pose is left as
@@ -145,7 +147,7 @@ bool IAnimSequenceImporter::Import() {
 			UE_LOG(LogReflection, Display, TEXT("\"%s\" is a difference with nothing to put it over, and a run of assets is no place to ask what"), *GetAssetName());
 		}
 
-		if (bAsk && SAdditiveBaseDialog::Open(GetAssetName(), BasePath) && !BasePath.IsEmpty()) {
+		if (bAsk && SAdditiveBaseDialog::Open(GetAssetName(), BasePath, SelectedAdditiveBase) && !BasePath.IsEmpty()) {
 			if (const TSharedPtr<FJsonObject> Rebuilt = GetAnimation(FetchPath, BasePath)) {
 				Payload = Rebuilt;
 
@@ -201,6 +203,15 @@ bool IAnimSequenceImporter::Import() {
 		"Skeleton",
 		"SkeletonGuid",
 	}), AnimSequence);
+
+	/* A cooked self-referenced additive has lost RefPoseSeq along with the pose it was authored
+	 * over. The dialog's answer used to rebuild the keys must also become the sequence's reference;
+	 * otherwise Unreal subtracts the skeleton pose from keys rebuilt over a different animation. */
+	if (SelectedAdditiveBase != nullptr) {
+		AnimSequence->RefPoseType = ABPT_AnimFrame;
+		AnimSequence->RefPoseSeq = SelectedAdditiveBase;
+		AnimSequence->RefFrameIndex = 0;
+	}
 
 	/* Held onto across the tracks below, which are what set the length the sequence plays for.
 	 * The engine answers a length it considers grown by treating the difference as time inserted

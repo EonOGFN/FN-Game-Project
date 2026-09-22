@@ -29,8 +29,9 @@ public:
 	void Construct(const FArguments& InArgs);
 
 	/* Runs the dialog modally. True when the user named an animation, with OutBasePath holding the
-	 * path to ask the Cloud for; false when they chose to go without one. */
-	static bool Open(const FString& SequenceName, FString& OutBasePath);
+	 * path to ask the Cloud for. OutBaseSequence is also set when they picked a project asset, so
+	 * the imported additive can retain the same reference after its keys are rebuilt. */
+	static bool Open(const FString& SequenceName, FString& OutBasePath, UAnimSequence*& OutBaseSequence);
 
 private:
 	FReply OnUseClicked();
