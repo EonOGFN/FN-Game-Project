@@ -106,7 +106,7 @@ bool IAnimSequenceImporter::Import() {
 		return false;
 	}
 
-	if (!FRRedirects::EmoteDestination.IsEmpty()) FEonEmoteImport::EnsureRetargetSource(Skeleton, GetAssetData(), GetAssetName());
+	//if (!FRRedirects::EmoteDestination.IsEmpty()) FEonEmoteImport::EnsureRetargetSource(Skeleton, GetAssetData(), GetAssetName());
 	/* Asked for by the path the game cooked it under. The export names that itself; only when it
 	 * doesn't is the path the asset landed at turned back into one. */
 	FString FetchPath = GetAssetExport()->HasField(TEXT("Package"))
