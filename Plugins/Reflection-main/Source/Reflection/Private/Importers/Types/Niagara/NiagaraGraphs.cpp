@@ -70,7 +70,7 @@ namespace {
 #if ENGINE_UE4
 		if (Call->FunctionScript == nullptr) return nullptr;
 
-		const UNiagaraScriptSource* Source = Cast<UNiagaraScriptSource>(Call->FunctionScript->GetSource());
+		const UNiagaraScriptSource* Source = Cast<UNiagaraScriptSource>(Call->FunctionScript->GetSource(FGuid()));
 
 		return Source != nullptr ? Source->NodeGraph : nullptr;
 #else
