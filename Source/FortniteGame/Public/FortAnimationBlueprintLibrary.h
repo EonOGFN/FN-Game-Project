@@ -9,6 +9,7 @@
 #include "FortAnimationBlueprintLibrary.generated.h"
 
 class UAnimInstance;
+class UCustomCharacterPartAnimInstance;
 class USkinnedMeshComponent;
 
 UCLASS(Blueprintable)
@@ -30,6 +31,15 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static void GetAlphaFromReferenceTransformDelta(float& AlphaOutput, float& RawOutput, const USkinnedMeshComponent* SkeletalMeshComponent, const FName BoneName, const FName BaseName, TEnumAsByte<EAlphaFromDeltaTypes::Type> DeltaComponentType, FVector2D InputRange, FVector2D OutputRange, FVector TwistAxis);
+
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Fortnite|Animation|Wind")
+    static FRotator GetRandomWindRotator(float GameTime, float TimeOffset, float PerlinScale, const FRotator& Frequency, const FRotator& Amplitude, const FRotator& Offset);
+
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Fortnite|Animation|Wind")
+    static FVector GetRandomWindVector(float GameTime, float TimeOffset, float PerlinScale, const FVector& Frequency, const FVector& Amplitude, const FVector& Offset);
+
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Fortnite|Animation|Wind")
+    static FVector ReorientWindVector(const FVector& WindVector, const UCustomCharacterPartAnimInstance* PartAnimInstance, FName JointName);
     
 };
 
