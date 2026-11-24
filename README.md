@@ -1,26 +1,23 @@
-# FNGameProj-17.50
-> This is a Unreal Project for modding a old Version of Fortnite (17.50) which has every c++ class recreated
+# Eon Unreal Engine project
 
-## How To use
+This is the Unreal Engine 4.26 project Eon used to build its cosmetics, emotes and game content for Fortnite 17.50. We're releasing it so the community can learn from it, build on it and use it for their own projects.
 
-#### Installation
+## Why it's public now
 
-All desktop editions of [Visual Studio 2019+]((http://www.visualstudio.com/products/visual-studio-community-vs)) can build this Project
+Eon has moved on from this version of its content work, and the modding team that worked on it has finished. Rather than let the project sit unused, we're opening it up so everyone can benefit from it instead of a few people.
 
-To install the correct components for this Project , make sure the Game Development with C++ workload is checked. Under the Installation Details section on the right, also choose the following components:
--   **C++ profiling tools**
--   **Windows 10 SDK** (10.0.18362 or newer)
--   **Unreal Engine Installer**
-Right click the *FortniteGame.uproject* and Switch Unreal Engine version... to the coressponding unreal version for this Project which can be found here - not yet
+## Credits
 
-Right click the *FortniteGame.uproject* and Generate Visual Studio Project Files then open the *FortniteGame.sln* and build the Project with Visual Studio
+Cosmetics and emotes in this project were made by Jace and Primary. Engine and project setup by the Eon team.
 
-Now launch the Project by launching the *FortniteGame.uproject*
+## What's inside
 
----
-## Credit
+- The Unreal Engine 4.26 project (uproject) with its content folders
+- Cosmetics, emotes and animations ported or made for 17.50
+- The engine source changes needed to open and cook it
 
-- [Zylox](https://twitter.com/zyloxmods) - Code fixes and additions
-- [boredcrow24](https://twitter.com/boredcrow24) - Code fixes and additions
-- [RE-UE4SS](https://github.com/UE4SS-RE/RE-UE4SS) - UHT Dump
-- [UE4GameProjectGenerator](https://github.com/Buckminsterfullerene02/UE4GameProjectGenerator) - Project generation
+## Notes
+
+- Provided as is, with no support.
+- Fortnite and its assets belong to Epic Games. This project is not affiliated with or endorsed by Epic Games.
+- Please credit Eon and the original creators if you use it.
